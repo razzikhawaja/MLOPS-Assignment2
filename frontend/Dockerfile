@@ -1,21 +1,32 @@
-# Base image
-FROM node:18 as build
+# Stage 1: Build
+FROM node:18 AS build
 
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy package.json and package-lock.json (if available)
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy source code and build
+# Copy the rest of the application
 COPY . .
+
+# Build the application
 RUN npm run build
 
-# Production server to serve static files
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
+# Stage 2: Serve the application
+FROM node:18
 
-# Expose the frontend port
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Set working directory for serving
+WORKDIR /app
+
+# Copy build artifacts from the build stage
+COPY --from=build /app/dist ./dist
+
+# Install a simple HTTP server to serve static files
+RUN npm install -g serve
+
+# Command to run the server
+CMD ["serve", "-s", "dist", "-l", "3000"]
