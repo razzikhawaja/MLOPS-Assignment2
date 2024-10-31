@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mlops-assignment2-frontend
+          image: mlops-assignment2-frontend:latest
           ports:
             - containerPort: 3000
 ---

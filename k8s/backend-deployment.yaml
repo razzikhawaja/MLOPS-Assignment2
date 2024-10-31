@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: mlops-assignment2-backend
+          image: mlops-assignment2-backend:latest
           ports:
             - containerPort: 5000
 ---
