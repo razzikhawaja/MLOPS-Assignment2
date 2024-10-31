@@ -14,9 +14,12 @@ spec:
     spec:
       containers:
         - name: backend
-          image: mlops-assignment2-backend:latest
+          image: mlops-assignment2-backend:latest  # Updated image name
           ports:
             - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: mongodb+srv://razzi:Razzi0984@cluster0.vuen418.mongodb.net/mlops  # Ensure this points to your mongo service
 ---
 apiVersion: v1
 kind: Service

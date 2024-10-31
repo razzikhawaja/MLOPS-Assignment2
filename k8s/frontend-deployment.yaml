@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: 3
+  replicas: 2  # Adjust based on your needs
   selector:
     matchLabels:
       app: frontend
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mlops-assignment2-frontend:latest
+          image: mlops-assignment2-frontend:latest  # Updated image name
           ports:
             - containerPort: 3000
 ---
@@ -23,10 +23,9 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: NodePort
+  type: LoadBalancer  # Change to NodePort if you want to expose it differently
   ports:
     - port: 3000
       targetPort: 3000
-      nodePort: 30001  # Port to access the service externally
   selector:
     app: frontend
