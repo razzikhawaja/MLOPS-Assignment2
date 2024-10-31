@@ -49,6 +49,6 @@ app.post('/login', (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
+app.listen(5000, () => {
   console.log("Server listening on http://127.0.0.1:5000");
 });
